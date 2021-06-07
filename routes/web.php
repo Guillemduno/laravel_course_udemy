@@ -22,10 +22,8 @@ use Illuminate\Support\Facades\Route;
 //     return 'Contact';
 // })->name('home.contact');
 
-Route::view('/', 'home.index')
-    ->name('home.index');
-Route::view('/contact', 'home.contact')
-    ->name('home.contact');
+Route::view('/', 'home.index')->name('home.index');
+Route::view('/contact', 'home.contact')->name('home.contact');
 
 $posts = [
         1 => [
@@ -64,3 +62,48 @@ Route::get('posts/{id}', function ($id) use ($posts) {
 Route::get('recent-posts/{days_ago?}', function ($days_ago = 20) {
     return 'Recent post form '.$days_ago.' days ago';
 })->name('post.recent.index');
+ 
+
+// Grouping Routes
+Route::prefix('/fun')->name('fun.')->group(function() use($posts){
+
+    //  Responses, Codes, Headers, and Cookies
+    Route::get('/responses', function () use($posts) {
+      return response($posts, 201)
+        ->header('Content-Type', 'application/json')
+        ->cookie('MY_COOKIE', 'Guillem Duñó', 3600);
+    })->name('responses');
+  
+    // Redirect
+    Route::get('/redirect', function () {
+        return redirect('/contact');
+    })->name('redirect');
+  
+    // Back
+    Route::get('/back', function () {
+        return back();
+    })->name('back');
+  
+    // Name route
+    Route::get('/route_name', function () {
+        return redirect()->route('posts.show', ['id' => 1]);
+    })->name('route_name');
+  
+    // Away
+    Route::get('/away', function () {
+        return redirect()->away('https://google.com');
+    })->name('away');
+  
+    // Return a json
+    Route::get('/json', function () use ($posts) {
+        return response()->json($posts);
+    })->name('json');
+  
+    // Download a file, and renamed.
+    Route::get('/download', function () {
+        return response()->download(public_path('/daniel.jpg'), 'face.jpg');
+    })->name('download');
+});
+
+
+
