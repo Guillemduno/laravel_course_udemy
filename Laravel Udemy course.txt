@@ -1,0 +1,112 @@
+
+======
+Tips
+======
+// Obre un projecte al Visual Studio Code. des de la consola de comandes.
+    code . 
+
+// Command pallete shortcut:
+ctrl+shift+P
+
+//Format document shortcut
+shift+alt+F
+
+
+
+=======
+Artisan
+=======
+
+// LListat de tots les comandes de artisan
+php artisan
+
+// Crear un command
+php artisan make:command SendMails
+
+=======
+Tinker
+=======
+´
+// Permet interactuar amb l'aplicació a través de la línea de comandes.
+php artisan tinker
+
+// Start de server
+php artisan serve
+
+// Stop de server
+ctrl + c
+
+
+===========
+Routes
+=========
+
+php artisan route:list
+
+// Es pot definir una restricció general per totes les rutes que la variable s'anomeni 'x' desde l'arxiu 
+// RouteServiceProvider.php
+
+ Route::pattern('id', '[0-9]+');
+
+// Permet mostrar un missatge elegant de not found, si el valor que li passem del arry no existeix.
+  abort_if(!isset($posts[$id]), 404);
+
+=============
+Condicionals
+============
+@extends('layouts.app')
+
+@section('title', $post['title'])
+
+@if ($post['is_new'])
+    <div>A new blog post! Using if</div>
+@elseif(!$post['is_new'])
+    <div>Blog post is old!</div>
+@else
+@endif
+
+// @unless()
+// La condició ha de ser falsa.
+// No hi ha alternatives.
+
+	@unless($post['is_new'])
+	@endunless()
+
+// @isset()
+// S'ha definit una variable o un array
+
+	@isset($post['is_new'])
+	@endisset
+
+
+// @empty()
+// És fals, 0 o és un array buit.
+
+	@empty($post['is_new']) 
+	@endempty
+
+// @forelse
+// És el mateix que utilitzar @if() i @foreach() junts
+
+	@forelse ($collection as $item)
+	@empty 
+	@endforelse
+
+@break
+@continue
+
+
+===================
+Resource Controller
+===================
+
+// Crea el controlador amb els mètodes CRUD
+php artisan make:controller PostController --resource
+
+// Crea la ruta cap el controlador
+Route::resource('/posts, PostController::class);
+
+// Si no volem utilitzar tots el mètodes podem utilitzar els mètodes only() o except()
+Route::resource('posts', PostController::class)->only(['index', 'show']);
+
+
