@@ -31,24 +31,14 @@ Route::get('/', [HomeController::class, 'home'])->name('home.index');
 Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
 Route::get('/single', AboutController::class);
 
-// $posts = [
-//         1 => [
-//             'title' => 'Intro to Laravel',
-//             'content' => 'This is a short intro to Laravel',
-//             'is_new' => true,
-//             'has_comments' => true
-//         ],
-//         2 => [
-//             'title' => 'Intro to PHP',
-//             'content' => 'This is a short intro to PHP',
-//             'is_new' => false
-//         ],
-//         3 => [
-//             'title' => 'Intro to Javascript',
-//             'content' => 'This is a short intro to Javascript',
-//             'is_new' => false
-//         ]
-// ];
+
+// ===========
+// POST ROUTES
+// ===========
+
+// Route::resource('posts', PostController::class);
+Route::resource('/posts', PostController::class)->only(['index', 'show', 'create', 'store']);
+
 
 // Route::get('/posts', function () use ($posts) {
 //     // compact($post) it's the same ['post' => $posts]
@@ -64,8 +54,7 @@ Route::get('/single', AboutController::class);
 // });
 
 
-// Route::resource('posts', PostController::class);
-Route::resource('/posts', PostController::class)->only(['index', 'show']);
+
 
 // Route::get('/posts/{id}', function ($id) use ($posts) {
 //     abort_if(!isset($posts[$id]), 404);

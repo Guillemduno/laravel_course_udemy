@@ -2,28 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePost;
+use App\Models\BlogPost;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+
 
 class PostController extends Controller
 {
-  private $posts = [
-    1 => [
-      'title' => 'Intro to Laravel',
-      'content' => 'This is a short intro to Laravel',
-      'is_new' => true,
-      'has_comments' => true
-    ],
-    2 => [
-      'title' => 'Intro to PHP',
-      'content' => 'This is a short intro to PHP',
-      'is_new' => false
-    ],
-    3 => [
-      'title' => 'Intro to Javascript',
-      'content' => 'This is a short intro to Javascript',
-      'is_new' => false
-    ]
-  ];
+  // private $posts = [
+  //   1 => [
+  //     'title' => 'Intro to Laravel',
+  //     'content' => 'This is a short intro to Laravel',
+  //     'is_new' => true,
+  //     'has_comments' => true
+  //   ],
+  //   2 => [
+  //     'title' => 'Intro to PHP',
+  //     'content' => 'This is a short intro to PHP',
+  //     'is_new' => false
+  //   ],
+  //   3 => [
+  //     'title' => 'Intro to Javascript',
+  //     'content' => 'This is a short intro to Javascript',
+  //     'is_new' => false
+    
+  //   ]
+  // ];
   /**
    * Display a listing of the resource.
    *
@@ -32,7 +37,8 @@ class PostController extends Controller
   public function index()
   {
     //
-    return view('posts.index', ['posts' => $this->posts]);
+    // return view('posts.index', ['posts' => $this->posts]);
+    return view('posts.index', ['posts' => BlogPost::all()]);
     
   }
 
@@ -44,6 +50,7 @@ class PostController extends Controller
   public function create()
   {
     //
+    return view('posts.create');
   }
 
   /**
@@ -52,9 +59,21 @@ class PostController extends Controller
    * @param  \Illuminate\Http\Request  $request
    * @return \Illuminate\Http\Response
    */
-  public function store(Request $request)
+  public function store(StorePost $request)
   {
-    //
+    // dd($request);
+
+    // Validation
+    $validated = $request->validated();
+    $post = new BlogPost();
+    $post->title = $validated['title'];
+    $post->content = $validated['content'];
+    $post->save();
+
+    // Flash message
+    $request->session()->flash('status', 'The blog post was created');
+
+    return redirect()->route('posts.show', ['post' => $post->id]);
   }
 
   /**
@@ -65,9 +84,11 @@ class PostController extends Controller
    */
   public function show($id)
   {
-    abort_if(!isset($this->posts[$id]), 404);
+    // abort_if(!isset($this->posts[$id]), 404);
+
     //     // return 'Blog post '.$id;
-        return view('posts.show', ['post' => $this->posts[$id]]);
+        // return view('posts.show', ['post' => $this->posts[$id]]);
+        return view('posts.show', ['post' => BlogPost::findOrFail($id)]);
   }
 
   /**
