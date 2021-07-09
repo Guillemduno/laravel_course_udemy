@@ -139,6 +139,8 @@ CREATING AND UPDATING INTRODUCCION TO TINKER
 
 php artisan tinker
 
+use App\Models\BlogPost;
+
 $post = new BlogPost();
 $post->title = 'this is the title';
 $post
@@ -196,3 +198,58 @@ Forms Validation / Make:request
 ===================================
 
 php artisan make:request StorePost
+
+===================================
+Reuse a Form
+===================================
+
+1. Create a partial called form.blade.php
+2. Copy the inputs to the new file
+3. Include the partial to the create file
+4. Create the edit file, copy the content from  the create file and modifiy it.
+5. Pass the post variable to the route
+6. Define de PUT @methood 
+7. In the edit methood from the PostController, define the returned view.
+
+===================================
+69. CRUD UPDATE
+===================================
+In the methood update from the PostController:
+
+    // Update
+    $post = BlogPost::findOrFail($id);
+    $validated = $request->validated();
+    $post->fill($validated);
+    $post->save();
+
+    // Message
+    $request->session()->flash('status', 'Blog post was updated!');
+
+    // Redirect
+    return redirect()->route('posts.show', ['post' => $post->id]);
+
+===================================
+73. INSTALLING BOOTSTRAP
+===================================
+
+1. composer require laravel/ui 3.0.0
+2. php artisan ui bootstrap
+3. php artisan ui:controllers // Authentification
+
+===================================
+74. NPM
+===================================
+
+All frontend libraries are configured in the package.json
+
+1. npm install
+2. npm run dev // compile all assets
+
+===================================
+75. INCLUDING ASSETS IN VIEWS
+===================================
+
+<link rel="stylesheet" href="{{asset('css/app.css')}}">
+<script src="{{asset('js/app.js')}}" defer></script>
+
+defer: the browser won't wait to render de page for javascript
