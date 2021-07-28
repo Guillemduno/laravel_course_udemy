@@ -253,3 +253,55 @@ All frontend libraries are configured in the package.json
 <script src="{{asset('js/app.js')}}" defer></script>
 
 defer: the browser won't wait to render de page for javascript
+
+
+if(mix.inProduction()){
+    mix.version();
+}
+
+===================================
+75. BASIC TESTING
+===================================
+
+Els testos es creen a la carpeta test, poden ser unitaris (unit) o de característiques (features).
+
+Els testos s'executen des de la línia de comandes amb: vendor/bin/phpunit
+
+Els testos es componen de tres parts: 
+    1. Arrange (organitzar)
+    2. Act (actuar)
+    3. Assert (afirmar)
+
+
+Per realitzar testos que intervingui la base de dades, cal crear-ne una paral·lela.
+
+    1. Modificar l'arxiu phpunit.xml
+        definir
+        <server name="DB_CONNECTION" value="sqlite"/>
+        <server name="DB_DATABASE" value=":memory:"/>
+    2. Afegir connexió a l'arxiu database.php de la carpeta config
+        'sqlite_testing' => [
+                'driver' => 'sqlite',
+                'database' => ':memory:',
+            ],
+
+    3. Netejar la cache
+        php artisan config:clear
+
+
+Per crear un arxiu de test nou: php artisan make:test HomeTest
+
+Exemple de mètode de la classe HomeTest:
+
+Els noms dels mètodes sempre han de començar per test!!!
+
+  public function testHomePageIsWorkingCorrectly()
+    {
+        $response = $this->get('/');
+        $response->assertSeeText('Hello World!!!');
+        $response->assertSeeText('The current value is 1');
+        $response->assertStatus(200);
+    }
+
+
+    S'ha d'utilitzar use RefreshDatabase; per crear la migració a la base de dades.

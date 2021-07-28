@@ -15,6 +15,6 @@
   @forelse ($posts as $key => $post)
     @include('posts.partials.post')
   @empty
-      <p>No posts found!</p>
+      <p>No posts found</p>
   @endforelse
 @endsection
