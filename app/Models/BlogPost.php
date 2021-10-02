@@ -11,8 +11,8 @@ class BlogPost extends Model
     // protected $fillable = [];
     use HasFactory;
 
-    protected $fillable = [
-        'title',
-        'content',
-    ];
+    // protected $fillable = [
+    //     'title',
+    //     'content',
+    // ];
 }
