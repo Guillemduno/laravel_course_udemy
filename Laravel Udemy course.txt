@@ -196,3 +196,29 @@ Forms Validation / Make:request
 ===================================
 
 php artisan make:request StorePost
+
+
+===================================
+Form/Models - Model Mass Assignment
+===================================
+
+En el model es defineixen els camps per fer l'assignació massiva.
+
+Class BlogPost extends Model{
+  protected $fillable = ['title', 'content'];  
+}
+
+Hi ha tres maneres de fer l'assignació massiva.
+
+1.
+BlogPost::create();
+
+
+2.
+$post2 = BlogPost::make();
+$post2->save();
+
+3. 
+//$post->fill($array);
+
+$post = BlogPost::created($validated);

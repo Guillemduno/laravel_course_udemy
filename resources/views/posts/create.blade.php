@@ -2,8 +2,6 @@
 
 @section('title', 'Create a post!')
 
-
-
 @section('content')
   <form action="{{route('posts.store')}}" method="post">
     @csrf
@@ -27,11 +25,8 @@
               <li>{{$error}}</li>
           @endforeach
         @endif
-
       </ul>
     </div>
-  
-    
   </form>
 @endsection
 
