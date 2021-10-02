@@ -139,6 +139,8 @@ CREATING AND UPDATING INTRODUCCION TO TINKER
 
 php artisan tinker
 
+use App\Models\BlogPost;
+
 $post = new BlogPost();
 $post->title = 'this is the title';
 $post
@@ -197,28 +199,109 @@ Forms Validation / Make:request
 
 php artisan make:request StorePost
 
+===================================
+Reuse a Form
+===================================
+
+1. Create a partial called form.blade.php
+2. Copy the inputs to the new file
+3. Include the partial to the create file
+4. Create the edit file, copy the content from  the create file and modifiy it.
+5. Pass the post variable to the route
+6. Define de PUT @methood 
+7. In the edit methood from the PostController, define the returned view.
 
 ===================================
-Form/Models - Model Mass Assignment
+69. CRUD UPDATE
+===================================
+In the methood update from the PostController:
+
+    // Update
+    $post = BlogPost::findOrFail($id);
+    $validated = $request->validated();
+    $post->fill($validated);
+    $post->save();
+
+    // Message
+    $request->session()->flash('status', 'Blog post was updated!');
+
+    // Redirect
+    return redirect()->route('posts.show', ['post' => $post->id]);
+
+===================================
+73. INSTALLING BOOTSTRAP
 ===================================
 
-En el model es defineixen els camps per fer l'assignació massiva.
+1. composer require laravel/ui 3.0.0
+2. php artisan ui bootstrap
+3. php artisan ui:controllers // Authentification
 
-Class BlogPost extends Model{
-  protected $fillable = ['title', 'content'];  
+===================================
+74. NPM
+===================================
+
+All frontend libraries are configured in the package.json
+
+1. npm install
+2. npm run dev // compile all assets
+
+===================================
+75. INCLUDING ASSETS IN VIEWS
+===================================
+
+<link rel="stylesheet" href="{{asset('css/app.css')}}">
+<script src="{{asset('js/app.js')}}" defer></script>
+
+defer: the browser won't wait to render de page for javascript
+
+
+if(mix.inProduction()){
+    mix.version();
 }
 
-Hi ha tres maneres de fer l'assignació massiva.
+===================================
+75. BASIC TESTING
+===================================
 
-1.
-BlogPost::create();
+Els testos es creen a la carpeta test, poden ser unitaris (unit) o de característiques (features).
+
+Els testos s'executen des de la línia de comandes amb: vendor/bin/phpunit
+
+Els testos es componen de tres parts: 
+    1. Arrange (organitzar)
+    2. Act (actuar)
+    3. Assert (afirmar)
 
 
-2.
-$post2 = BlogPost::make();
-$post2->save();
+Per realitzar testos que intervingui la base de dades, cal crear-ne una paral·lela.
 
-3. 
-//$post->fill($array);
+    1. Modificar l'arxiu phpunit.xml
+        definir
+        <server name="DB_CONNECTION" value="sqlite"/>
+        <server name="DB_DATABASE" value=":memory:"/>
+    2. Afegir connexió a l'arxiu database.php de la carpeta config
+        'sqlite_testing' => [
+                'driver' => 'sqlite',
+                'database' => ':memory:',
+            ],
 
-$post = BlogPost::created($validated);
+    3. Netejar la cache
+        php artisan config:clear
+
+
+Per crear un arxiu de test nou: php artisan make:test HomeTest
+
+Exemple de mètode de la classe HomeTest:
+
+Els noms dels mètodes sempre han de començar per test!!!
+
+  public function testHomePageIsWorkingCorrectly()
+    {
+        $response = $this->get('/');
+        $response->assertSeeText('Hello World!!!');
+        $response->assertSeeText('The current value is 1');
+        $response->assertStatus(200);
+    }
+
+
+    S'ha d'utilitzar use RefreshDatabase; per crear la migració a la base de dades.
