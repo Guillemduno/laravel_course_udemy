@@ -10,7 +10,8 @@ INSTALLATION
                 -> Edit the PATH
                 -> Move to the top
                 -> Save
-        
+                
+- Download Composer
 
 
 ======
