@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePost;
 use App\Models\BlogPost;
-use Illuminate\Auth\Events\Validated;
+// use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 
 
@@ -65,15 +65,19 @@ class PostController extends Controller
 
     // Validation
     $validated = $request->validated();
-    $post = new BlogPost();
-    $post->title = $validated['title'];
-    $post->content = $validated['content'];
-    $post->save();
+      $post = new BlogPost();
+      $post->title = $validated['title'];
+      $post->content = $validated['content'];
+      $post->save();
+
+    // $post = BlogPost::created($validated);
+  
 
     // Flash message
     $request->session()->flash('status', 'The blog post was created');
 
     return redirect()->route('posts.show', ['post' => $post->id]);
+    // return redirect()->route('posts.index');
   }
 
   /**

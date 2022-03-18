@@ -1,3 +1,18 @@
+=============
+INSTALLATION
+=============
+- Download Wamp
+- Enable to use PHP in the command line:
+    - Add the PATH to the PHP binary in the sistem path enviorment
+        - In Windows 
+            -> Advanced sytem settings
+            -> Enviroments variables button
+                -> Edit the PATH
+                -> Move to the top
+                -> Save
+                
+- Download Composer
+
 
 ======
 Tips
