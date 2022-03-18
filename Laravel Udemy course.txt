@@ -305,3 +305,5 @@ Els noms dels mètodes sempre han de començar per test!!!
 
 
     S'ha d'utilitzar use RefreshDatabase; per crear la migració a la base de dades.
+
+    'errors' is a global variable from laravel.
