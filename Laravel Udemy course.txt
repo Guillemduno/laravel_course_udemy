@@ -13,7 +13,6 @@ INSTALLATION
                 
 - Download Composer
 
-
 ======
 Tips
 ======
@@ -25,7 +24,6 @@ ctrl+shift+P
 
 //Format document shortcut
 shift+alt+F
-
 
 
 =======
@@ -55,6 +53,12 @@ ctrl + c
 ===========
 Routes
 =========
+
+URI (Uniform Resource Identifier)
+    - String identifier that refers to a resource on internet using location, name or both
+    URI has to subsets:
+     - URL (Uniform Resource Locator)
+     - URN (Uniform Resource Number)    
 
 php artisan route:list
 
@@ -322,3 +326,5 @@ Els noms dels mètodes sempre han de començar per test!!!
     S'ha d'utilitzar use RefreshDatabase; per crear la migració a la base de dades.
 
     'errors' is a global variable from laravel.
+
+more...

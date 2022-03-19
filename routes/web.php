@@ -27,9 +27,39 @@ use App\Http\Controllers\PostController;
 //     return 'Contact';
 // })->name('home.contact');
 
+
+
 Route::get('/', [HomeController::class, 'home'])->name('home.index');
 Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
-Route::get('/single', AboutController::class);
+Route::get('/single', AboutController::class)->name('home.single');
+
+// Route::get('/welcome/{name?}', fn ($name='user')=>'<h1>Welcome '.$name.'!!!</h1>')->name('home.welcome');
+// Route::get('/welcome', fn()=>view('home.welcome'));
+$users = [
+    1 => [
+        'name' => 'Guillem',
+        'age' => 43,
+        'has_money' => true,
+        'has_friends' => true
+
+    ],
+    2 => [
+        'name' => 'Carol',
+        'age' => 42,
+        'has_money' => false
+    ]
+];
+
+Route::get('/users', function() use($users){
+    return view('users.index', ['users' => $users]);
+});
+
+Route::get('/userDetail/{id}', function($id) use($users){
+    abort_if(!isset($users[$id]), 404);
+ return view('users.userDetail  ', ['user'=>$users[$id]]);
+});
+// Route::get('/welcome', [HomeController::class, 'welcome'])->name('home.welcome');
+
 
 
 // ===========

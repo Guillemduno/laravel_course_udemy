@@ -48,7 +48,9 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/web.php'));
         });
 
+        // Constrains
         Route::pattern('id', '[0-9]+');
+        // Route::pattern('name', '[a-z]+');
     }
 
     /**
