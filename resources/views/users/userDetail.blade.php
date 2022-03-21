@@ -29,7 +29,6 @@
     </div>   
     @endisset
 
-    @foreach ($_POST['users'] as $user)
-        {{$user}}
-    @endforeach
+    <a class="btn btn-primary" href="{{route('users.index')}}">Return to users list</a>
+
 @endsection

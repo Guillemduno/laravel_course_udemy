@@ -36,7 +36,8 @@ Route::get('/single', AboutController::class)->name('home.single');
 // Route::get('/welcome/{name?}', fn ($name='user')=>'<h1>Welcome '.$name.'!!!</h1>')->name('home.welcome');
 // Route::get('/welcome', fn()=>view('home.welcome'));
 $users = [
-    1 => [
+    1 => [ 
+        'id'=> 1,
         'name' => 'Guillem',
         'age' => 43,
         'has_money' => true,
@@ -44,23 +45,42 @@ $users = [
 
     ],
     2 => [
+        'id' => 2,
         'name' => 'Carol',
         'age' => 42,
         'has_money' => false
+    ],
+    3 => [
+        'id' => 3,
+        'name' => 'Arlet',
+        'age' => 11,
+        'has_money' => false,
+        'has_friends' => true
+    ],
+    4 => [
+        'id' => 4,
+        'name' => 'Nil',
+        'age' => 7,
+        'has_money' => false,
+        'has_friends' => true
     ]
 ];
 
 Route::get('/users', function() use($users){
     return view('users.index', ['users' => $users]);
-});
+})->name('users.index');
 
 Route::get('/userDetail/{id}', function($id) use($users){
     abort_if(!isset($users[$id]), 404);
- return view('users.userDetail  ', ['user'=>$users[$id]]);
-});
+ return view('users.userDetail', ['user'=>$users[$id]]);
+})->name('users.userDetail');
 // Route::get('/welcome', [HomeController::class, 'welcome'])->name('home.welcome');
 
-
+Route::get('/fun/responses', function() use($users){
+    return response($users, 201)
+        ->header('Content-Type', 'application/json')
+        ->cookie('MY_COOKIE', 'Willy', 3600);
+});
 
 // ===========
 // POST ROUTES

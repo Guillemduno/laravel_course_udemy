@@ -1,13 +1,16 @@
 @extends('layouts.app')
 
-@section('title', 'Welcome')
+@section('title', 'Users')
 
 @section('content')
-
-    @foreach ($users as $key => $user)
+    @forelse ($users as $key => $user)
+        @include('users.partials.user')
+    @empty
         <div>
-         {{$key}}. {{$user['name']}} has
-            {{$user['age']}} years old 
+            No users found....
         </div>
-    @endforeach
+    @endforelse
+ 
 @endsection
+
+{{-- Comments!!! --}}
