@@ -76,10 +76,40 @@ Route::get('/userDetail/{id}', function($id) use($users){
 })->name('users.userDetail');
 // Route::get('/welcome', [HomeController::class, 'welcome'])->name('home.welcome');
 
-Route::get('/fun/responses', function() use($users){
-    return response($users, 201)
-        ->header('Content-Type', 'application/json')
-        ->cookie('MY_COOKIE', 'Willy', 3600);
+
+
+Route::prefix('/fun')->name('fun.')->group(function() use($users){
+
+    Route::get('/responses', function() use($users){
+        return response($users, 201)
+            ->header('Content-Type', 'application/json')
+            ->cookie('MY_COOKIE', 'Willy', 3600);
+    })->name('responses');
+
+    Route::get('/redirect', function(){
+        return redirect('/contact');
+    })->name('redirect');
+
+    Route::get('/back', function(){
+        return back();
+    })->name('back');
+
+    Route::get('/named-route', function(){
+        return redirect()->route('users.userDetail', ['id'=>1]);
+    })->name('named-route');
+
+    Route::get('/away', function(){
+        return redirect()->away('https://google.com');
+    })->name('away');
+
+    Route::get('/json', function() use($users){
+        return response()->json($users);
+    })->name('json');
+
+    Route::get('/download', function(){
+        return response()->download(public_path('/daniel.jpg'), 'face.jpg',);
+    })->name('download');
+
 });
 
 // ===========

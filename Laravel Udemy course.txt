@@ -70,6 +70,18 @@ php artisan route:list
 // Permet mostrar un missatge elegant de not found, si el valor que li passem del arry no existeix.
   abort_if(!isset($posts[$id]), 404);
 
+Routes can be grouped
+Grouped reoutes share attributes:
+    URL prefix
+    Name prefix
+    Middleware
+
+Example: 
+Route::prefix('/fun')->name('fun.')->group(function() use($users){
+    //Route 1
+    //Route 2...
+});
+
 =============
 Condicionals
 ============
