@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Route;
 use Iluminate\Http\Request;
 use PhpParser\Node\Expr\FuncCall;
 use App\Http\Controllers\PostController;
+use Illuminate\Http\Request as HttpRequest;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,36 +37,7 @@ Route::get('/single', AboutController::class)->name('home.single');
 
 // Route::get('/welcome/{name?}', fn ($name='user')=>'<h1>Welcome '.$name.'!!!</h1>')->name('home.welcome');
 // Route::get('/welcome', fn()=>view('home.welcome'));
-$users = [
-    1 => [ 
-        'id'=> 1,
-        'name' => 'Guillem',
-        'age' => 43,
-        'has_money' => true,
-        'has_friends' => true
 
-    ],
-    2 => [
-        'id' => 2,
-        'name' => 'Carol',
-        'age' => 42,
-        'has_money' => false
-    ],
-    3 => [
-        'id' => 3,
-        'name' => 'Arlet',
-        'age' => 11,
-        'has_money' => false,
-        'has_friends' => true
-    ],
-    4 => [
-        'id' => 4,
-        'name' => 'Nil',
-        'age' => 7,
-        'has_money' => false,
-        'has_friends' => true
-    ]
-];
 
 Route::get('/users', function() use($users){
     return view('users.index', ['users' => $users]);
@@ -74,8 +47,9 @@ Route::get('/userDetail/{id}', function($id) use($users){
     abort_if(!isset($users[$id]), 404);
  return view('users.userDetail', ['user'=>$users[$id]]);
 })->name('users.userDetail');
-// Route::get('/welcome', [HomeController::class, 'welcome'])->name('home.welcome');
 
+
+Route::resource('/users', UserController::class);
 
 
 Route::prefix('/fun')->name('fun.')->group(function() use($users){

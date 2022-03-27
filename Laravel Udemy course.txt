@@ -127,6 +127,23 @@ Condicionals
 @continue
 
 
+===========
+Middleware
+===========
+
+Runs before and after the controller
+
+Runs before the request reaches the controller
+Examples: 
+    Verify if user is authentificated
+    logger middleware
+
+Runs after the request reaches the controller
+Examples:
+    Add headers to response (CORS)
+    Add content to response (eg. extra JSON)
+
+
 ===================
 Resource Controller
 ===================
