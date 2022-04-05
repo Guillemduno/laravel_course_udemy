@@ -152,7 +152,7 @@ Resource Controller
 php artisan make:controller PostController --resource
 
 // Crea la ruta cap el controlador
-Route::resource('/posts, PostController::class);
+Route::resource('/posts', PostController::class);
 
 // Si no volem utilitzar tots el mètodes podem utilitzar els mètodes only() o except()
 Route::resource('posts', PostController::class)->only(['index', 'show']);

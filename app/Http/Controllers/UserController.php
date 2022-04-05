@@ -44,7 +44,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('users.index', ['users' => $this->users]);
     }
 
     /**
@@ -76,7 +76,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        abort_if(!isset($this->users[$id]), 404);
+        return view('users.show', ['user'=>$this->users[$id]]);
     }
 
     /**

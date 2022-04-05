@@ -39,18 +39,17 @@ Route::get('/single', AboutController::class)->name('home.single');
 // Route::get('/welcome', fn()=>view('home.welcome'));
 
 
-Route::get('/users', function() use($users){
-    return view('users.index', ['users' => $users]);
-})->name('users.index');
-
-Route::get('/userDetail/{id}', function($id) use($users){
-    abort_if(!isset($users[$id]), 404);
- return view('users.userDetail', ['user'=>$users[$id]]);
-})->name('users.userDetail');
+Route::resource('users', UserController::class);
 
 
-Route::resource('/users', UserController::class);
-
+$users = [
+    1 => [
+        'name' => 'Guillem'
+    ],
+    2 => [
+        'name' => 'Carol'
+    ]
+];
 
 Route::prefix('/fun')->name('fun.')->group(function() use($users){
 
