@@ -194,9 +194,9 @@ $post->title = 'this is the title';
 $post
 $post->save()
 
-BlogPost::find(1); // returns true or false
+BlogPost::find(1); // Find by id and returns true or false
 
-BlogPost::findOrFail(1); return de values or an exception
+BlogPost::findOrFail(1); return the values or an exception
 
 $post->all(); 
 
@@ -206,7 +206,7 @@ $post[0];
 $post->first();
 $post->count();
 
-BlogPost::find([1, 2, 3]);
+BlogPost::find([1, 2, 3]); // pass different id's
 
 ===================================
 QUERY BUILDER
