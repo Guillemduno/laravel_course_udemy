@@ -2,41 +2,42 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\UserFamily;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
 
-   private $users = [
-        1 => [ 
-            'id'=> 1,
-            'name' => 'Guillem',
-            'age' => 43,
-            'has_money' => true,
-            'has_friends' => true
+//    private $users = [
+//         1 => [ 
+//             'id'=> 1,
+//             'name' => 'Guillem',
+//             'age' => 43,
+//             'has_money' => true,
+//             'has_friends' => true
     
-        ],
-        2 => [
-            'id' => 2,
-            'name' => 'Carol',
-            'age' => 42,
-            'has_money' => false
-        ],
-        3 => [
-            'id' => 3,
-            'name' => 'Arlet',
-            'age' => 11,
-            'has_money' => false,
-            'has_friends' => true
-        ],
-        4 => [
-            'id' => 4,
-            'name' => 'Nil',
-            'age' => 7,
-            'has_money' => false,
-            'has_friends' => true
-        ]
-    ];
+//         ],
+//         2 => [
+//             'id' => 2,
+//             'name' => 'Carol',
+//             'age' => 42,
+//             'has_money' => false
+//         ],
+//         3 => [
+//             'id' => 3,
+//             'name' => 'Arlet',
+//             'age' => 11,
+//             'has_money' => false,
+//             'has_friends' => true
+//         ],
+//         4 => [
+//             'id' => 4,
+//             'name' => 'Nil',
+//             'age' => 7,
+//             'has_money' => false,
+//             'has_friends' => true
+//         ]
+//     ];
     /**
      * Display a listing of the resource.
      *
@@ -44,7 +45,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('users.index', ['users' => $this->users]);
+        // return view('users.index', ['users' => $this->users]);
+        return view('users.index', ['users' => UserFamily::all()]);
     }
 
     /**
@@ -76,8 +78,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        abort_if(!isset($this->users[$id]), 404);
-        return view('users.show', ['user'=>$this->users[$id]]);
+        return view('users.show', ['user'=>UserFamily::findOrFail($id)]);
     }
 
     /**
