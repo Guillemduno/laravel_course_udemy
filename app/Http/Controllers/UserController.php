@@ -57,6 +57,7 @@ class UserController extends Controller
     public function create()
     {
         //
+        return view('users.create');
     }
 
     /**
@@ -68,6 +69,23 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request->name()); 
+        $user = new UserFamily;
+
+        $user->name         = $request->input('user');
+        $user->age          = $request->input('age');
+        $user->has_money    = false;
+        $user->has_friends  = true;
+        // $user->has_money    = $request->input('has_money');
+        // $user->has_friends  = $request->input('has_friends');
+        $user->email        = $request->input('email');
+        $user->password     = $request->input('password');
+        // $user->updated_at     = \getdate;
+        // $user->created_at     = $request->input('password');
+
+        $user->save();
+
+        return redirect()->route('users.show', ['user' => $user->id]);
     }
 
     /**

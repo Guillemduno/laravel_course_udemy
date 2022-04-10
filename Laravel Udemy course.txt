@@ -223,6 +223,10 @@ BlogPost::orderBy('created_at', 'desc')->take(5)->get()
 ===================================
 Forms
 ===================================
+1. Create a view for the form. Url Action to store method of the controller
+2. Return the view from the create methood of the controller
+3. Add @csrf token for security
+
 
   $post = new BlogPost();
   $post->title = $request->input('title');
