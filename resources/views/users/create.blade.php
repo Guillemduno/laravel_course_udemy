@@ -18,17 +18,19 @@
         </div>
         <div>
             <label for="has_money">Has money?</label>
-            <input type="checkbox" name="has_money" id="has_money" value="true">
+            <input type="checkbox" name="has_money" id="has_money">
         </div>
         <div>
             <label for="has_friends">Has friends?</label>
-            <input type="checkbox" name="has_friends" id="has_friends" value="true">
+            <input type="checkbox" name="has_friends" id="has_friends">
         </div>
         <div>
             <label for="email">Email:</label>
             <input type="email" name="email" id="email">
         </div>
-
+        @error('email')
+            <div>{{$message}}</div>
+        @enderror
         <div>
             <label for="password">Password</label>
             <input type="password" name="password" id="password">

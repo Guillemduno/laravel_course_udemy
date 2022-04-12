@@ -16,18 +16,15 @@
             Pooorr.....
         </div>   
     @endif
-
-    @unless($user['has_money'])
-    <div>
-        Pooorr from unlesssss.....
-    </div>  
-    @endunless
-
-    @isset($user['has_friends'])
-    <div>
-        {{$user['name']}} has friends!!!!
-    </div>   
-    @endisset
+    @if($user['has_friends'])
+        <div>
+            Has a lot of friends!!!!
+        </div>
+    @else
+        <div>
+            Hasn't got friends....
+        </div>   
+    @endif
 
     <a class="btn btn-primary" href="{{route('users.index')}}">Return to users list</a>
 
