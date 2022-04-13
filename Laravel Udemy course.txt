@@ -265,7 +265,6 @@ SHOW ALL ERROR MESSAGES
 @endif
 
 SHOW SPECIFIC ERROR MESSAGE
-
 @error('email')
     <div>{{$message}}</div>
 @enderror
@@ -274,7 +273,14 @@ SHOW SPECIFIC ERROR MESSAGE
 Forms Validation / Make:request
 ===================================
 
-php artisan make:request StorePost
+php artisan make:request StoreUser
+
+In this route is stored the request classes
+App/Http/Request/StoreUser
+
+In the class StoreUser
+     - authorize method must be in true to let send the form
+     - in the rules() method we put the array of validations
 
 ===================================
 Reuse a Form

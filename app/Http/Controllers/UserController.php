@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUser;
 use App\Models\UserFamily;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -67,27 +68,20 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUser $request)
     {
-        $request->validate([
-            'email' => 'required|email'
-        ]);
-        
+        $validated = $request->validated();
         $user = new UserFamily();
-
-        $user->name         = $request->input('user');
-        $user->age          = $request->input('age');
+        $user->name         = $validated['user'];
+        $user->age          = $validated['age'];
         $request->input('has_money') == 'on'?
             $user->has_money=true:$user->has_money=false;
         $request->input('has_friends') == 'on'?
             $user->has_friends=true:$user->has_friends=false;
-
-        $user->email        = $request->input('email');
+        $user->email        = $validated['email'];
         $user->email_verified_at = now();
         $user->password     = $request->input('password');
         $user->remember_token = Str::random(10);
-        // $user->updated_at     = \getdate;
-        // $user->created_at     = $request->input('password');
 
         $user->save();
 
