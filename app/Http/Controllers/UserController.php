@@ -72,18 +72,20 @@ class UserController extends Controller
     {
         $validated = $request->validated();
         $user = new UserFamily();
-        $user->name         = $validated['user'];
+
+        $user->name         = $validated['name'];
         $user->age          = $validated['age'];
-        $request->input('has_money') == 'on'?
-            $user->has_money=true:$user->has_money=false;
-        $request->input('has_friends') == 'on'?
-            $user->has_friends=true:$user->has_friends=false;
         $user->email        = $validated['email'];
-        $user->email_verified_at = now();
-        $user->password     = $request->input('password');
+        $user->password     = $validated['password'];
+        $user->has_money    = $validated['has_money'];
+        $user->has_friends  = $validated['has_friends'];
+
         $user->remember_token = Str::random(10);
+        $user->email_verified_at = now();
 
         $user->save();
+
+        $request->session()->flash('status', 'The user was created');
 
         return redirect()->route('users.show', ['user' => $user->id]);
     }
@@ -108,6 +110,7 @@ class UserController extends Controller
     public function edit($id)
     {
         //
+        return view('users.edit', ['user' => UserFamily::findOrFail($id)]);
     }
 
     /**
@@ -117,9 +120,21 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUser $request, $id)
     {
         //
+        $user = UserFamily::findOrFail($id);
+        $validated = $request->validated();
+        $user->fill($validated);
+
+        // $user->remember_token = Str::random(10);
+        // $user->email_verified_at = now();
+        $user->save();
+
+        $request->session()->flash('status', 'The user was updated');
+
+        return redirect()->route('users.show', ['user' => $user->id]);
+
     }
 
     /**
@@ -130,6 +145,9 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = UserFamily::findOrFail($id);
+        $user->delete();
+        session()->flash("status", "The user $user->name was deleted!");
+        return redirect()->route('users.index');
     }
 }

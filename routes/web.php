@@ -9,6 +9,7 @@ use PhpParser\Node\Expr\FuncCall;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request as HttpRequest;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,7 @@ Route::get('/single', AboutController::class)->name('home.single');
 
 
 Route::resource('users', UserController::class);
+Route::resource('books', BookController::class);
 
 
 $users = [

@@ -181,6 +181,9 @@ Available Column Types
 $table->year('any_naixament');
 $table->string('nom');
 
+Create a migration for a unique file
+    php artisan migrate --path=database/migrations/2022_04_16_145059_create_books_table.php
+
 ============================================
 CREATING AND UPDATING INTRODUCCION TO TINKER
 ============================================
@@ -211,6 +214,9 @@ BlogPost::find([1, 2, 3]); // pass different id's
 ===================================
 QUERY BUILDER
 ===================================
+Create a factory file  
+ php artisan make:factory BookFactory
+
 User::factory()->count(5)->create();
 
 User::where('id', '>=', '2')->orderBy('id', 'desc')->get()
@@ -282,6 +288,56 @@ In the class StoreUser
      - authorize method must be in true to let send the form
      - in the rules() method we put the array of validations
 
+     return[
+            'title' => 'bail|required|min:5|max:100',
+            'year' => 'required',
+            'pages' => 'required',
+        ];
+
+
+===================================
+Flash Messages
+===================================
+
+Use session for sending messages between pages after form validation.
+
+In the store method of the controller add:
+$request->session()->flash('status', 'The user was created');
+
+In the view:
+ @if (session('status'))
+    <div class="alert alert-success">
+    {{session('status')}}
+    </div>
+@endif
+
+When the page is refreshed de message is deleted.
+
+===================================
+Old Input Methood
+===================================
+
+Keep data in the form if the validation fail
+
+In the input tag set the old() function in the value attribute passing the id of the input:
+    value="{{old('user')}}"
+
+===================================
+Forms/Models Mass Assignment
+===================================
+
+Eloquent model provides mass assignment
+
+In the model class must define fillable columns
+    protected $fillable['column1', 'column2', etc...];
+
+
+There are three ways to implement:
+    - UserFamily::create(); // saves the model to database
+        example: $user = UserFamily::create($validated);
+    - UserFamily::make(); // don`t save the model to database
+    - Fill()
+
 ===================================
 Reuse a Form
 ===================================
@@ -290,7 +346,7 @@ Reuse a Form
 2. Copy the inputs to the new file
 3. Include the partial to the create file
 4. Create the edit file, copy the content from  the create file and modifiy it.
-5. Pass the post variable to the route
+5. Pass the post variable to the update route
 6. Define de PUT @methood 
 7. In the edit methood from the PostController, define the returned view.
 
@@ -310,6 +366,18 @@ In the methood update from the PostController:
 
     // Redirect
     return redirect()->route('posts.show', ['post' => $post->id]);
+
+To delete a user:
+    1. Create a form that sends the id in the view
+       - Add @csrf
+       - Add @method('DELETE)
+       - Add inpute type button
+    2. In the controller add to the destroy methood
+        - in the second parameter Request $request
+        - create a new instance of the model
+            $user = UserFamily::findOrFail($id)
+        - show flash message
+        - redirect to other view.
 
 ===================================
 73. INSTALLING BOOTSTRAP
@@ -332,15 +400,21 @@ All frontend libraries are configured in the package.json
 75. INCLUDING ASSETS IN VIEWS
 ===================================
 
-<link rel="stylesheet" href="{{asset('css/app.css')}}">
-<script src="{{asset('js/app.js')}}" defer></script>
+In the views layouts add
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <script src="{{asset('js/app.js')}}" defer></script>
 
-defer: the browser won't wait to render de page for javascript
+    defer: the browser won't wait to render the page for javascript
 
-
+Get a unique hash to the assets
 if(mix.inProduction()){
     mix.version();
 }
+
+Replace the asset helper for mix helper!!!
+    <link rel="stylesheet" href="{{mix('css/app.css')}}">
+    <script src="{{mix('js/app.js')}}" defer></script>
+
 
 ===================================
 75. BASIC TESTING

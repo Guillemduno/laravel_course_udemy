@@ -3,6 +3,7 @@
 @section('title', 'Users')
 
 @section('content')
+
 <a class="btn btn-primary" href="{{route('users.create')}}">Create user</a>
     @forelse ($users as $key => $user)
         @include('users.partials.user')

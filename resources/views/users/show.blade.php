@@ -27,5 +27,13 @@
     @endif
 
     <a class="btn btn-primary" href="{{route('users.index')}}">Return to users list</a>
+    <a class="btn btn-primary" href="{{route('users.edit', ['user' => $user->id])}}">Edit this user</a>
+    
+    <form action="{{route('users.destroy', ['user' => $user->id])}}" method="post">
+        @csrf
+        @method('DELETE')
+        <input class="btn btn-danger" type="submit" value="Delete user">
+    </form>
+    
 
 @endsection
