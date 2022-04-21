@@ -422,7 +422,9 @@ Replace the asset helper for mix helper!!!
 
 Els testos es creen a la carpeta test, poden ser unitaris (unit) o de característiques (features).
 
-Els testos s'executen des de la línia de comandes amb: vendor/bin/phpunit
+Els testos s'executen des de la línia de comandes amb: 
+     - vendor/bin/phpunit
+     - php artisan test
 
 Els testos es componen de tres parts: 
     1. Arrange (organitzar)

@@ -46,4 +46,43 @@ class BookTest extends TestCase
             'title'=>'Aprenda a meditar'
         ]);
     }
+
+    public function test200 (){
+
+     $this->get('/books')->assertOk();
+    }
+
+    public function testStoreValid(){
+
+        $params = [
+            'title' => 'Valid title',
+            'year' => 2,
+            'pages' => 444
+        ];
+
+        $this->post('/books', $params)
+                ->assertStatus(302)
+                ->assertSessionHas('status');
+
+        $this->assertEquals(session('status'), "The book 'Valid title' was created");
+    }
+
+    public function testStoreFailure(){
+        $params = [
+            'title' => 'Th',
+            'year' => '',
+            'pages' => ''      
+        ];
+
+        $this->post('/books', $params)
+                ->assertStatus(302)
+                ->assertSessionHas('errors');
+        
+        $messages = session('errors')->getMessages();
+
+        $this->assertEquals($messages['title'][0], 'The title must be at least 5 characters.');
+        $this->assertEquals($messages['year'][0], 'The year field is required.');
+        $this->assertEquals($messages['pages'][0], 'The pages field is required.');
+        // dd($messages->getMessages());
+    }
 }
