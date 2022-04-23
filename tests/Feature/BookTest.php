@@ -31,11 +31,7 @@ class BookTest extends TestCase
     public function testSeeBookFromDataBase()
     {
         // Arrange
-        $book = new Book();
-        $book->title = 'Aprenda a meditar';
-        $book->year = 2999;
-        $book->pages = 234;
-        $book->save();
+        $book = $this->saveBookIntoDataBase();
 
         // Act
         $response = $this->get('/books');
@@ -43,7 +39,9 @@ class BookTest extends TestCase
         // Assert
         $response->assertSeeText('Aprenda a meditar');
         $this->assertDatabaseHas('books', [
-            'title'=>'Aprenda a meditar'
+            'title'     => 'Aprenda a meditar',
+            'year'      => 2999,
+            'pages'     => 234
         ]);
     }
 
@@ -87,16 +85,12 @@ class BookTest extends TestCase
 
     public function testBookUpdate(){
 
-        $book = new Book();
-        $book->title = 'Contigo hasta el final2';
-        $book->year = 2004;
-        $book->pages = 396;
-        $book->save();
+        $book = $this->saveBookIntoDataBase();
 
         $this->assertDatabaseHas('books', [
-            'title' => 'Contigo hasta el final2',
-            'year' => 2004,
-            'pages' => 396
+            'title'     => 'Aprenda a meditar',
+            'year'      => 2999,
+            'pages'     => 234
         ]);
 
         $params = [
@@ -120,26 +114,33 @@ class BookTest extends TestCase
 
     }
 
-    public function testDeleteBook(){
-
-        $book           = new Book();
-        $book->title    = 'Contigo hasta el final2';
-        $book->year     = 2004;
-        $book->pages    = 396;
-        $book->save();
+    public function testDeleteBook()
+    {
+        $book = $this->saveBookIntoDataBase();
 
         $this->assertDatabaseHas('books', [
-            'title'     => 'Contigo hasta el final2',
-            'year'      => 2004,
-            'pages'     => 396
+            'title'     => 'Aprenda a meditar',
+            'year'      => 2999,
+            'pages'     => 234
         ]);
 
         $this->delete("books/{$book->id}", )
             ->assertStatus(302)
             ->assertSessionHas('status');
 
-        $this->assertEquals(session('status'), "The book 'Contigo hasta el final2' was deleted!");
+        $this->assertEquals(session('status'), "The book 'Aprenda a meditar' was deleted!");
 
         $this->assertDatabaseMissing('books', $book->toArray());
+    }
+
+    private function saveBookIntoDataBase():Book
+    {
+        $book = new Book();
+        $book->title = 'Aprenda a meditar';
+        $book->year = 2999;
+        $book->pages = 234;
+        $book->save();
+
+        return $book;
     }
 }

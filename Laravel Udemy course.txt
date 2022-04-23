@@ -468,3 +468,46 @@ Els noms dels mètodes sempre han de començar per test!!!
     'errors' is a global variable from laravel.
 
 more...
+
+
+======================================
+92. ONE TO ONE RELATION WITH MIGRATION
+======================================
+
+One author -> one profile
+
+1. // Create Author
+php artisan make:model Author --migration
+
+// Create profile
+php artisan make:model Profile --migration
+
+2. In the Author Model create a public function:
+    public function profile()
+    {
+        return $this->hasOne('App\Profile');
+    }
+
+In the Profile Model create a public function:
+    public function author(){
+
+        return $this->belongsTo('App\Author');
+    }
+
+3. Modify authors migration file
+    // nothing to change
+   
+   Modify profile migration file
+    $table->unsignedInterger('author_id')->unique();
+    $table->foreign('author_id')->references('id')->on('authors');
+
+4. Migrate 
+
+    php artisan migrate --path=database/migrations/2022_04_23_142345_create_authors_table
+    php artisan migrate --path=database/migrations/2022_04_23_142553_create_profiles_table
+
+======================================
+93. ONE TO ONE ASSIGNING RELATIONSHIP
+======================================
+
+php artisan tinker
