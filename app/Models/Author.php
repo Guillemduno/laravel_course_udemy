@@ -4,8 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use App\Models\Profile;
+
 
 class Author extends Model
 {
@@ -13,6 +12,6 @@ class Author extends Model
 
     public function profile()
     {
-        return $this->hasOne('App\Profile');
+        return $this->hasOne('App\Models\Profile');
     }
 }

@@ -511,3 +511,23 @@ In the Profile Model create a public function:
 ======================================
 
 php artisan tinker
+
+// Assign Author to Profile
+$author = new App\Models\Author;
+$author->save()
+
+$profile = new App\Models\Profile;
+$author->profile()
+$author->profile()->save($profile)
+
+// Assign Profile to Author
+$profile = new App\Models\Profile;
+$author = Author::create();
+$profile->author();
+$profile->author()->associate($author)->save();
+
+
+======================================
+94. ONE TO ONE QUERING RELATIONSHIP
+======================================
+$author = Author::with('profile')->whereKey(1)->first();
