@@ -531,3 +531,27 @@ $profile->author()->associate($author)->save();
 94. ONE TO ONE QUERING RELATIONSHIP
 ======================================
 $author = Author::with('profile')->whereKey(1)->first();
+
+========================================
+95. ONE TO MANY RELATION WITH MIGRATION
+========================================
+
+One book -> many comments.
+
+// Save one comment
+$book->comments()->save($comment3);
+
+// Save many comments
+$book->comments()->saveMany([$comment1, $comment2])
+
+QUERYS
+$books = Book::with('comments')->get();
+
+// Search comments from a book.
+$b = Book::find(16);
+$b->comments;
+
+// Search for a book with the comment
+$comment = BookComment::find(2);
+$comment->book
+$comment

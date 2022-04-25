@@ -11,5 +11,8 @@ class Book extends Model
     
     use HasFactory;
 
+    public function comments(){
+        return $this->hasMany('App\Models\BookComment');
+    }
   
 }
