@@ -535,7 +535,41 @@ $author = Author::with('profile')->whereKey(1)->first();
 ========================================
 95. ONE TO MANY RELATION WITH MIGRATION
 ========================================
+One book -> many comments
 
+1. // Create Book model
+php artisan make:model Book --migration
+
+// Create BookComment Model
+php artisan make:model BookComment --migration
+
+2. In the Book Model create a public function:
+    public function comments()
+    {
+        return $this->hasMany('App\Models\BookComent');
+    }
+
+In the BookComment model create a public function:
+    public function book(){
+
+        return $this->belongsTo('App\Models\Book');
+    }
+
+3. Modify book migration file
+    // nothing to change, already exists
+   
+   Modify BookComent migration file
+    $table->unsignedInterger('book_id')->unique();
+    $table->foreign('book_id')->references('id')->on('books');
+
+4. Migrate 
+
+    php artisan migrate --path=database/migrations/2022_04_23_142345_create_books_table
+    php artisan migrate --path=database/migrations/2022_04_23_142553_create_book_comments_table
+
+========================================
+96. ONE TO MANY ASSIGNING RELATIONSHIP
+========================================
 One book -> many comments.
 
 // Save one comment
@@ -544,7 +578,10 @@ $book->comments()->save($comment3);
 // Save many comments
 $book->comments()->saveMany([$comment1, $comment2])
 
-QUERYS
+
+========================================
+97. ONE TO MANY QUERING RELATIONSHIP
+========================================
 $books = Book::with('comments')->get();
 
 // Search comments from a book.
@@ -555,3 +592,55 @@ $b->comments;
 $comment = BookComment::find(2);
 $comment->book
 $comment
+-
+
+========================================
+98. LAZY LOADING VS EAGER LOADING
+========================================
+
+
+========================================
+99. QUERING RELATIONSHIP EXISTENCE
+========================================
+
+$books = Book::has('comments')->get();
+
+$books = Book::has('comments', '>=', 2)->get();
+
+$books = Book::whereHas('comments', function($query){
+    $query->where('comment', 'like', '%very%');
+})->get();
+
+========================================
+100. QUERING RELATIONSHIP ABSENCE
+========================================
+
+$books = Book::doesntHave('comments')->get();
+
+$books = Book::whereDoesntHave('comments', function($query){
+    $query->where('comment', 'like', '%very%');
+})->get();
+
+========================================
+101. COUNTING RELATED MODELS
+========================================
+
+$books = Book::withCount('comments')->get();
+
+$books = Book::withCount(['comments', 'comments as new_comments'=> function($query){
+    $query->where('created_at', '>=', '2022-04-25 03:56:19');
+}])->get();
+
+
+========================================
+103. MODEL FACTORY INTRODUCTION
+========================================
+
+php artisan make:factory CommentFactory --model=BookComment
+
+// In the definition methood of the Factory file add
+        return [
+            'comment' => $this->faker->text
+        ];
+
+

@@ -28,7 +28,7 @@ class BookTest extends TestCase
         $response->assertSeeText('No books registered');
     }
 
-    public function testSeeBookFromDataBase()
+    public function testSeeBookFromDataBaseWithNoComments()
     {
         // Arrange
         $book = $this->saveBookIntoDataBase();
@@ -38,6 +38,7 @@ class BookTest extends TestCase
 
         // Assert
         $response->assertSeeText('Aprenda a meditar');
+        $response->assertSeeText('No comments yet!');
         $this->assertDatabaseHas('books', [
             'title'     => 'Aprenda a meditar',
             'year'      => 2999,
