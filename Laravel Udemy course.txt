@@ -640,7 +640,10 @@ php artisan make:factory CommentFactory --model=BookComment
 
 // In the definition methood of the Factory file add
         return [
-            'comment' => $this->faker->text
+            'comment' => $this->faker->text()
         ];
 
+// Open tinker
+use BookComment
+BookComment::factory()->count(5)->create(['book_id'=> 3]);
 

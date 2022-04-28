@@ -15,11 +15,8 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
         // return view('books.index', ['books' => Book::all()->sortByDesc('id')]);
         return view('books.index', ['books' => Book::withCount('comments')->get()]);
-
-        
     }
 
     /**

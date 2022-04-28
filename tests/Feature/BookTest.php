@@ -4,6 +4,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\Book;
+use App\Models\BookComment;
 
 class BookTest extends TestCase
 {
@@ -44,6 +45,18 @@ class BookTest extends TestCase
             'year'      => 2999,
             'pages'     => 234
         ]);
+    }
+
+    public function testSeeBookFromDataBaseWithComments(){
+        // Arrange
+        $book = $this->saveBookIntoDataBase();
+        BookComment::factory()->count(5)->create(['book_id' => $book->id]);
+
+        // Act
+        $response = $this->get('/books');
+
+        // Assert
+        $response->assertSeeText('5 comments');
     }
 
     public function test200 (){
@@ -136,12 +149,13 @@ class BookTest extends TestCase
 
     private function saveBookIntoDataBase():Book
     {
-        $book = new Book();
-        $book->title = 'Aprenda a meditar';
-        $book->year = 2999;
-        $book->pages = 234;
-        $book->save();
+        // $book = new Book();
+        // $book->title = 'Aprenda a meditar';
+        // $book->year = 2999;
+        // $book->pages = 234;
+        // $book->save();
 
-        return $book;
+        return Book::factory()->newTestBook()->create();
+        // return $book;
     }
 }

@@ -15,9 +15,20 @@ class BookFactory extends Factory
     {
         return [
             //
-            'title' => $this->faker->title,
-            'year' => $this->faker->numberBetween($min = 1000, $max = 2022),
+            'title' => $this->faker->sentence(10),
+            'year' => $this->faker->numberBetween($min = 1900, $max = 2022),
             'pages' => $this->faker->numberBetween($min = 100, $max = 1000)
         ];
+    }
+
+    public function newTestBook(){
+
+        return $this->state(function(array $attributes){
+            return[
+                'title' => 'Aprenda a meditar',
+                'year' => 2999,
+                'pages' => 234
+            ];
+        });
     }
 }
