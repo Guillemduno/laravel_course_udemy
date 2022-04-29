@@ -647,3 +647,18 @@ php artisan make:factory CommentFactory --model=BookComment
 use BookComment
 BookComment::factory()->count(5)->create(['book_id'=> 3]);
 
+========================================
+105. MODEL FACTORY CALLBACKS
+========================================
+Create a factory for the relation 
+    ex: author->profile
+    php artisan make:factory AuthorFactory --model=Author
+    php artisan make:factory ProfileFactory --model=Profile
+
+    // In the AuthorFactory.php 
+      public function configure(){
+        return $this->afterCreating(function(Author $author){
+            $author->profile()->save(Profile::factory()->make());
+        });
+    }
+

@@ -59,7 +59,7 @@ class BookController extends Controller
     public function show($id)
     {
         //
-        return view('books.show', ['book' => Book::findOrFail($id)]);
+        return view('books.show', ['book' => Book::withCount('comments')->findOrFail($id)]);
     }
 
     /**
