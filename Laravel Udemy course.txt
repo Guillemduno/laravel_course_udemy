@@ -597,7 +597,8 @@ $comment
 ========================================
 98. LAZY LOADING VS EAGER LOADING
 ========================================
-
+lazy - makes a query for each item.
+eager - makes only one query for a lot of items.
 
 ========================================
 99. QUERING RELATIONSHIP EXISTENCE
@@ -646,6 +647,11 @@ php artisan make:factory CommentFactory --model=BookComment
 // Open tinker
 use BookComment
 BookComment::factory()->count(5)->create(['book_id'=> 3]);
+
+========================================
+104. MODEL FACTORY STATES
+========================================
+
 
 ========================================
 105. MODEL FACTORY CALLBACKS
