@@ -668,3 +668,16 @@ Create a factory for the relation
         });
     }
 
+========================================
+107. INSTALL UI PACKAGE
+========================================
+// In the command line
+composer require laravel/ui
+php artisan ui:controllers
+
+
+========================================
+108. AUTHENTIFICATION OVERVIEW
+========================================
+
+
