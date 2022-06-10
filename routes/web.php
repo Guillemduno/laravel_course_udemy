@@ -10,6 +10,7 @@ use App\Http\Controllers\PostController;
 use Illuminate\Http\Request as HttpRequest;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +22,6 @@ use App\Http\Controllers\BookController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
 Route::get('/', [HomeController::class, 'home'])->name('home.index');
 Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
 Route::get('/single', AboutController::class)->name('home.single');
@@ -30,6 +29,8 @@ Route::get('/single', AboutController::class)->name('home.single');
 
 Route::resource('users', UserController::class);
 Route::resource('books', BookController::class);
+Route::resource('posts', PostController::class);
+    // ->only(['index', 'show', 'create', 'store', 'edit', 'update']);
 
 
 $users = [
@@ -75,13 +76,8 @@ Route::prefix('/fun')->name('fun.')->group(function() use($users){
 
 });
 
-// ===========
-// POST ROUTES
-// ===========
+Auth::routes();
 
-// Route::resource('posts', PostController::class);
-Route::resource('posts', PostController::class);
-    // ->only(['index', 'show', 'create', 'store', 'edit', 'update']);
 
 Route::get('recent-posts/{days_ago?}', function ($days_ago = 20) {
     return 'Recent post form '.$days_ago.' days ago';

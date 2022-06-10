@@ -15,7 +15,6 @@ class CreateUserFamiliesTable extends Migration
     {
         Schema::create('user_families', function (Blueprint $table) {
             $table->id();
-          
             $table->string('name');
             $table->integer('age');
             $table->boolean('has_money');

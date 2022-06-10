@@ -13,7 +13,6 @@
         <a href="{{route('books.index')}}" class="btn btn-primary">Return to book list</a>
       </div>
     </div>
-
     <div class="card mt-3">
       <div class="card-body">
         <h4 class="card-title">Comments</h4>
