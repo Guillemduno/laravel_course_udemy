@@ -597,7 +597,8 @@ $comment
 ========================================
 98. LAZY LOADING VS EAGER LOADING
 ========================================
-
+lazy - makes a query for each item.
+eager - makes only one query for a lot of items.
 
 ========================================
 99. QUERING RELATIONSHIP EXISTENCE
@@ -648,6 +649,11 @@ use BookComment
 BookComment::factory()->count(5)->create(['book_id'=> 3]);
 
 ========================================
+104. MODEL FACTORY STATES
+========================================
+
+
+========================================
 105. MODEL FACTORY CALLBACKS
 ========================================
 Create a factory for the relation 
@@ -661,4 +667,26 @@ Create a factory for the relation
             $author->profile()->save(Profile::factory()->make());
         });
     }
+
+========================================
+107. INSTALL UI PACKAGE
+========================================
+// In the command line
+composer require laravel/ui
+php artisan ui:controllers
+
+
+========================================
+108. AUTHENTIFICATION OVERVIEW
+========================================
+
+========================================
+111. CUSTOM REGISTRATION FORM AND AUTH
+========================================
+// In the routes/web.php file add: 
+    - use Illuminate\Support\Facades\Auth;
+    - Auth::routes();
+    to check routes in the command line
+    - php artisan route:list
+
 
