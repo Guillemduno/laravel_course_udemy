@@ -680,4 +680,13 @@ php artisan ui:controllers
 108. AUTHENTIFICATION OVERVIEW
 ========================================
 
+========================================
+111. CUSTOM REGISTRATION FORM AND AUTH
+========================================
+// In the routes/web.php file add: 
+    - use Illuminate\Support\Facades\Auth;
+    - Auth::routes();
+    to check routes in the command line
+    - php artisan route:list
+
 
