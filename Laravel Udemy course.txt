@@ -683,10 +683,13 @@ php artisan ui:controllers
 ========================================
 111. CUSTOM REGISTRATION FORM AND AUTH
 ========================================
-// In the routes/web.php file add: 
+1. In the routes/web.php file add: 
     - use Illuminate\Support\Facades\Auth;
     - Auth::routes();
     to check routes in the command line
     - php artisan route:list
 
+2. Create register blade template
+    - Inside the views folder create a folder 'auth'
+        - Inside the 'auth' folder create the file 'register.blade.php'
 
