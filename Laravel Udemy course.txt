@@ -693,3 +693,14 @@ php artisan ui:controllers
     - Inside the views folder create a folder 'auth'
         - Inside the 'auth' folder create the file 'register.blade.php'
 
+========================================
+112. FORMATING VALIDATOR ERRORS
+========================================
+
+class="form-control {{$errors->has('name')?' is-invalid':''}}"
+   
+@if($errors->has('name'))
+    <span class="invalid-feedback">
+        {{ $errors->first('name')}}
+    </span>
+@endif
