@@ -19,6 +19,13 @@
       <a class="p-2 text-dark" href="{{route('home.contact')}}">Contact</a>
       <a class="p-2 text-dark" href="{{route('posts.index')}}">Blog Posts</a>
       <a class="p-2 text-dark" href="{{route('posts.create')}}">Add Blog Post</a>
+      @guest
+      <a class="p-2 text-dark" href="{{route('register')}}">Register</a>
+      <a class="p-2 text-dark" href="{{route('login')}}">Login</a>
+      @else
+        Hello User!
+        <a class="p-2 text-dark" href="{{route('logout')}}">Log out</a>
+      @endguest
     </nav>
 
   </div>

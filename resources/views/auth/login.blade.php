@@ -2,18 +2,8 @@
 
 @section('content')
     
-    <form action="{{route('register')}}" method="post">
+    <form action="{{route('login')}}" method="post">
         @csrf
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="name" name="name" id="name" value="{{old('name')}}" required class="form-control {{$errors->has('name')?' is-invalid':''}}">
-            @if($errors->has('name'))
-                <span class="invalid-feedback">
-                    {{ $errors->first('name')}}
-                </span>
-            @endif
-        </div>
-
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" name="email" id="email" value="{{old('email')}}" required class="form-control {{$errors->has('email')?' is-invalid':''}}">
@@ -35,11 +25,14 @@
         </div>
 
         <div class="form-group">
-            <label for="password_confirmation">Retyped Password</label>
-            <input type="password" name="password_confirmation" id="password_confirmation" required class="form-control">
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" name="remember" value="{{old('remember')?'checked':''}}">
+                <label for="remember" class="form-check-label">Remember me</label>
+            </div>
+
         </div>
 
-        <input type="submit" value="Register" class="btn btn-primary btn-block">
+        <input type="submit" value="Log in" class="btn btn-primary btn-block">
         
     </form>
 @endsection
