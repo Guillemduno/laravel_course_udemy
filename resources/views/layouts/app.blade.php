@@ -20,11 +20,17 @@
       <a class="p-2 text-dark" href="{{route('posts.index')}}">Blog Posts</a>
       <a class="p-2 text-dark" href="{{route('posts.create')}}">Add Blog Post</a>
       @guest
-      <a class="p-2 text-dark" href="{{route('register')}}">Register</a>
-      <a class="p-2 text-dark" href="{{route('login')}}">Login</a>
+        @if (Route::has('register'))
+          <a class="p-2 text-dark" href="{{route('register')}}">Register</a>
+        @endif
+        <a class="p-2 text-dark" href="{{route('login')}}">Login</a>
       @else
-        Hello User!
-        <a class="p-2 text-dark" href="{{route('logout')}}">Log out</a>
+        
+        <a class="p-2 text-dark" href="{{route('logout')}}" 
+          onclick="event.preventDefault();document.getElementById('logout-form').submit()">Log out ({{Auth::user()->name}})</a>
+        <form id="logout-form" action="{{route('logout')}}" method="post" style="display: none;">
+          @csrf
+        </form>
       @endguest
     </nav>
 
