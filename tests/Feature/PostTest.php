@@ -6,7 +6,9 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use App\Models\BlogPost;    
+use App\Models\BlogPost;
+use Illuminate\Contracts\Auth\Authenticatable;   
+
 
 class PostTest extends TestCase
 {
@@ -41,12 +43,16 @@ class PostTest extends TestCase
 
 
     public function testStoreValid(){
+
+        $user = $this->user();
+
         $params = [
             'title' => 'Valid title',
             'content' => 'At least 10 characters' 
         ];
 
-        $this->post('/posts', $params)
+        $this->actingAs($user)
+            ->post('/posts', $params)
             ->assertStatus(302)
             ->assertSessionHas('status');
         
@@ -60,7 +66,8 @@ class PostTest extends TestCase
             'content' => 'x'
         ]; 
 
-        $this->post('/posts', $params)
+        $this->actingAs($this->user())
+        ->post('/posts', $params)
         ->assertStatus(302)
         ->assertSessionHas('errors');
 

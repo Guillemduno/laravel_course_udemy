@@ -10,6 +10,12 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+
+
+  public function __construct(){
+    $this->middleware('auth')
+          ->only('create', 'store', 'update', 'destroy', 'edit');
+  }
   // private $posts = [
   //   1 => [
   //     'title' => 'Intro to Laravel',
