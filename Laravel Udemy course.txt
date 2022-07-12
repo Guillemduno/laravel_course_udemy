@@ -704,3 +704,9 @@ class="form-control {{$errors->has('name')?' is-invalid':''}}"
         {{ $errors->first('name')}}
     </span>
 @endif
+
+=================================================================
+119. REFRESHING DATABASE, DATABASE FOREIGN KEYS AND EXISTING DATA
+==================================================================
+
+php artisan make:migration add_user_to_blog_posts_table
