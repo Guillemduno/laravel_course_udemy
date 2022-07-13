@@ -710,3 +710,22 @@ class="form-control {{$errors->has('name')?' is-invalid':''}}"
 ==================================================================
 
 php artisan make:migration add_user_to_blog_posts_table
+
+
+
+=================================================================
+120. Problem: SQLite test database NOT NULL problem
+==================================================================
+         if(env('DB_CONNECTION') === 'sqlite_testing'){
+                $table->unsignedInteger('user_id')->default(0);
+            }else{
+                $table->unsignedInteger('user_id');
+            }
+
+=================================================================
+121. DATABASE SEDDING BASICS
+==================================================================
+
+php artisan db:seed
+
+php artisan migrate:refresh --seed
