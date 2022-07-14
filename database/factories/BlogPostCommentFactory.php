@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class BookCommentFactory extends Factory
+class BlogPostCommentFactory extends Factory
 {
     /**
      * Define the model's default state.
