@@ -13,7 +13,7 @@ class CreateBlogpostCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('blog_posts_comments', function (Blueprint $table) {
+        Schema::create('blogpost_comments', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
 
