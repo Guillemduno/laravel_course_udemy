@@ -36,7 +36,7 @@ class UserFactory extends Factory
         return $this->state(function(array $attributes){
             return[
                 'name' => "Guillem",
-                'email' => "guilleduno@gmail.com"
+                'email' => "gduno@gmail.com"
             ];
         });
     }

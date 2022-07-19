@@ -743,3 +743,16 @@ Put all the seeders into the run funciton
 Separete database seeder into different classes files.
 
 php artisan make:seeder UsersTableSeeder
+
+
+
+=================================================================
+125. MAKING SEEDER INTERACTIVE
+==================================================================
+
+  if($this->command->confirm('Do you want to refresh database?')){
+            $this->command->call('migrate:refresh');
+            $this->command->info('Database was refreshed');
+        }
+
+php artisan db:seed

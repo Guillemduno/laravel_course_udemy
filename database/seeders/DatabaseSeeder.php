@@ -18,6 +18,5 @@ class DatabaseSeeder extends Seeder
             BlogPostTableSeeder::class,
             CommentsTableSeeder::class
         ]);
-   
     }
 }

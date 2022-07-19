@@ -76,6 +76,7 @@ class PostController extends Controller
       $post = new BlogPost();
       $post->title = $validated['title'];
       $post->content = $validated['content'];
+      $post->user_id = $validated['user_id'];
       $post->save();
 
     // $post = BlogPost::created($validated);

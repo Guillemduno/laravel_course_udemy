@@ -18,4 +18,8 @@ class BlogPost extends Model
     public function comments(){
         return $this->hasMany('App\Models\BlogpostComment');
     }
+
+    public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
 }

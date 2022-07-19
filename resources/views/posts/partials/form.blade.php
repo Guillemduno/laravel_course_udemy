@@ -13,7 +13,10 @@
     <label for="content">Description:</label>
     <textarea name="content" id="content" class="form-control" cols="30" rows="10">{{old('content', optional($post ?? null)->content)}}</textarea>
 </div>
-
+<div class="form-group">
+    <label for="user_id">User id:</label>
+    <input type="number" name="user_id" id="user_id" class="form-control" value="{{old('user_id', optional($post ?? null)->user_id)}}">
+</div>
       @if ($errors->any())
          <!-- Display all the errors -->
         <div class="mb-3">
