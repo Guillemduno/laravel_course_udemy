@@ -756,3 +756,47 @@ php artisan make:seeder UsersTableSeeder
         }
 
 php artisan db:seed
+
+
+
+=================================================================
+137. POLICIES INTRODUCTION
+==================================================================
+
+php artisan make:policy BlogPostPolicy
+php artisan make:policy BlogPostPolicy --model=BlogPost
+
+Gate::define()
+
+Gate::resource()
+
+=================================================================
+139. VERIFYING PERMISIONS IN BLADE TEMPLATES
+==================================================================
+directives: 
+
+@can('delete', $post)
+@endcan
+
+@cannot('delete', $post)
+    <p>You can delete this post...</p>
+@endcannot
+
+=================================================================
+140. USING MIDDLEWARE TOT AUTORIZE ROUTES
+==================================================================
+
+Create a gate in de authServiceProvider
+
+Create a directive in the contact page
+
+Modify home controler to add a secret view
+
+Create a new view in views/posts
+    - secret.blade.php
+
+Create a route
+Route::get('/secret', [HomeController::class, 'secret'])
+    ->name('secret')
+    ->middleware('can:secret');
+

@@ -26,6 +26,9 @@ Route::get('/', [HomeController::class, 'home'])
         ->name('home.index');
         // ->middleware('auth');
 Route::get('/contact', [HomeController::class, 'contact'])->name('home.contact');
+Route::get('/secret', [HomeController::class, 'secret'])
+    ->name('secret')
+    ->middleware('can:secret');
 Route::get('/single', AboutController::class)->name('home.single');
 
 
